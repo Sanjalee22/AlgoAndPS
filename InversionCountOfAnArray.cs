@@ -38,32 +38,35 @@ class Program
         }
         public static void Merge(int[] ar, int l, int m, int r)
         {
-            
-            int[] leftSorted = new int[m-l];
-            int[] rightSorted = new int[r - (m + 1)];
+
+            int n1 = m - l + 1;
+            int n2 = r - m;
+            int[] leftSorted = new int[n1];
+            int[] rightSorted = new int[n2];
             int i;
 
             //copy array elements in temp arrays
-            for ( i = 0; i < m; ++i)
-                leftSorted[i] = ar[i];
-            for (i = 0; i < r; ++i)
-                rightSorted[i] = ar[i];
-            int j = 0, k = m + 1;
-            i = 0;
-            while(j<m || k<r)
+            for ( i = 0; i <n1; ++i)
+                leftSorted[i] = ar[l+i];
+            for (i = 0; i < n2 ;++i)
+                rightSorted[i] = ar[m+1+i];
+
+            int j = 0, k = 0;
+            i = l;
+            while(j<n1 && k<n2)
             {
-                if(ar[j]<=ar[k])
+                if(leftSorted[j]<=rightSorted[k])
                 {
-                    ar[i] = ar[j];
+                    ar[i] = leftSorted[j];
                    
                     ++j;
                 }
                 else
                 {
-                    ar[i] = ar[k];
+                    ar[i] = rightSorted[k];
                    
                     ++k;
-                    count = count + (m - j + 1);
+                    count = count + (n1-j);
                     // so when you copy an element from right subarray into main array, it means
                     // that it is smaller than all the remaining elemnts in left subarray, but it appears after 
                     //them in main unsorted array because thats how it ended
@@ -78,4 +81,4 @@ class Program
             //elements from right array.
 
         }
-        }
+}
