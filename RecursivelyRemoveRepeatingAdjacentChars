@@ -1,0 +1,61 @@
+//Given a string s, recursively remove adjacent duplicate characters from the string s. 
+//The output string should not have any adjacent duplicates.
+ 
+public static void Main(string[] args)
+        {
+            int noOfTC = Convert.ToInt32(Console.ReadLine());
+            for (int t = 0; t < noOfTC; ++t)
+            {
+                //int num = Convert.ToInt32(Console.ReadLine());
+                //string[] s1 = Console.ReadLine().Split(' ');
+                //int[] startArray = Array.ConvertAll(s1, int.Parse);
+                string str = Console.ReadLine();
+                RemoveAdjacentDuplicate(str);
+
+                Console.WriteLine(count);
+                Console.ReadLine();
+            }
+        }
+
+        public static void RemoveAdjacentDuplicate(string str)
+        {
+            int i = 0;
+            string resStr = string.Empty;
+            
+            while (i<str.Length)
+            {
+                char currChar = str[i];
+                bool repeatingChar = false; 
+                while (i!=str.Length-1 && str[i+1]==currChar) //this loop will ignore all the repeating adjacent chars
+                {
+                    ++i;
+                    repeatingChar = true;                    
+                }
+                if (repeatingChar)
+                {
+                    ++i;
+                    continue;//if repeatingChar is true, that means we don't have to go furtehr in code and go to the next char in the string
+                    //At this point, i is the last of the repeating chars, hence we should ignore it as well
+                    //because str[i+1]==currChar would have been false
+                }
+                    
+                if(resStr!=string.Empty && resStr.Last<char>()==str[i])
+                {
+                    resStr.Remove(resStr.Length - 1);
+                    //If the adj char are not the same, we check with teh last char of the res string also. Because if they are same, 
+                    //they needed to be eliminated
+                    //Also note that at this point, the char in hand is the one which has no duplicates around it.
+                    //So we only have to check if the last in teh result string is same as this one
+                    //eg: acbbbcd, this c will be tested here.
+                }
+                else
+                {
+                    resStr = resStr + str[i];
+                    //add the char to result string if everything is fine
+                }
+
+                ++i;
+            }
+
+            Console.WriteLine(resStr);
+        }
