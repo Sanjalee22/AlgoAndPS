@@ -1,0 +1,34 @@
+//Check if teh tree is BST: Inorder traversal should be in increasing order
+  public static void Main(string[] args)
+        {
+            int noOfTC = Convert.ToInt32(Console.ReadLine());
+
+
+            for (int t = 0; t < noOfTC; ++t)
+            {
+                int num = Convert.ToInt32(Console.ReadLine());
+                //string[] s1 = Console.ReadLine().Split(' ');
+                //int[] startArray = Array.ConvertAll(s1, int.Parse);           
+
+
+                //string str = Console.ReadLine();
+                Node n = new Node(10);
+                
+                bool res = IsBST(n, int.MinValue);
+
+                Console.ReadLine();
+            }
+        }
+ public static bool IsBST(Node root, int prev)
+        {
+            if (root != null)
+            {
+                if (!IsBST(root.left, prev))
+                    return false;
+                if (root.data <= prev)
+                    return false;
+                prev = root.data;
+                IsBST(root.right, prev);
+            }
+
+        }
