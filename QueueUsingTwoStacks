@@ -1,0 +1,39 @@
+class Program
+    {
+        public static Stack<int> s1 = new Stack<int>();
+        public static Stack<int> s2 = new Stack<int>();
+        public static void Main(string[] args)
+        {
+            int noOfTC = Convert.ToInt32(Console.ReadLine());
+           
+
+            for (int t = 0; t < noOfTC; ++t)
+            {
+                int num = Convert.ToInt32(Console.ReadLine());
+                //string[] s1 = Console.ReadLine().Split(' ');
+                //int[] startArray = Array.ConvertAll(s1, int.Parse);           
+                
+                
+                //string str = Console.ReadLine();
+                
+                
+                
+                Console.ReadLine();
+            }
+        }
+
+        public static void PushInTwoStackQueue( int data)
+        {
+            s1.Push(data);
+        }
+
+        public static int PopFromTwoStackQueue()
+        {
+            if (s2.Count==0)
+            {
+                foreach (int x in s1)
+                    s2.Push(x);
+            }
+            return s2.Pop();
+        }
+        }
