@@ -1,0 +1,40 @@
+class Program
+    {
+        
+        public static void Main(string[] args)
+        {
+            int noOfTC = Convert.ToInt32(Console.ReadLine());
+
+
+            for (int t = 0; t < noOfTC; ++t)
+            { 
+
+                Dictionary<int, List<int>> graph = new Dictionary<int, List<int>>();               
+                graph.Add(0, new List<int> { 1, 2, 3 });
+                graph.Add(2, new List<int> { 4 });
+                DFS(graph,0);
+                Console.ReadLine();               
+               
+                
+            }
+        }
+
+        public static void DFS(Dictionary<int, List<int>> graph, int startnode)
+        {
+            Queue<int> q = new Queue<int>();
+            q.Enqueue(startnode);
+            while(q.Count!=0)
+            {
+                int node = q.Dequeue();
+                Console.WriteLine(node);
+                if (graph.ContainsKey(node))
+                {
+                    foreach (int k in graph[node])
+                        q.Enqueue(k);
+                }               
+                
+            }
+            
+        }      
+
+    }
