@@ -1,0 +1,49 @@
+//The problem is to count all the possible paths from top left to bottom right of a 
+//MxN matrix with the constraints that from each cell you can either move to right or down.
+class Program
+    {
+        public static int rows, columns, pathCount;
+        public static int[,] arr=new int[,] { {1,2,3 },{4,5,6 },{7,8,9 } };
+        public static void Main(string[] args)
+        {
+            int noOfTC = Convert.ToInt32(Console.ReadLine());
+
+
+            for (int t = 0; t < noOfTC; ++t)
+            {
+                //int num = Convert.ToInt32(Console.ReadLine());
+                //string[] s1 = Console.ReadLine().Split(' ');
+                //int[] startArray = Array.ConvertAll(s1, int.Parse);           
+
+                rows = 3;  columns = 3;
+                //string str = Console.ReadLine();
+                pathCount = 0;
+                NumberOfPathsIn2DArray(0, 0);
+                Console.WriteLine(pathCount);
+                Console.ReadLine();
+                
+               
+                
+            }
+        }
+
+        public static void NumberOfPathsIn2DArray( int r, int c)
+        {            
+            if(r==rows-1 && c==columns-1)
+            {
+                pathCount++;
+                return;
+            }
+
+            if (r < rows && (c + 1) < columns)
+                NumberOfPathsIn2DArray(r, c + 1);
+            if (r + 1 < rows && c < columns)
+                NumberOfPathsIn2DArray(r + 1, c);
+        }
+
+        
+
+
+        
+
+    }
