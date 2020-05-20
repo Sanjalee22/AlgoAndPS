@@ -1,0 +1,106 @@
+
+        public static void MinHeapifyAnArray(List<int> arr, int n)
+        {
+            //Loop through the elements and check if the current element is smallest of its
+            //two children. If not, swap it with the smallest child.
+            //You have to loop only till n/2 as rest of them are heapified by then, as they are all leaf nodes.
+            int left, right, min;
+            for(int i=0; i<n/2; ++i)
+            {
+                left = 2 * i + 1;
+                right = 2 * i + 2;
+                min = i;
+                if (left<=n && arr[min] >= arr[left])
+                    min = left;
+                if (right<=n && arr[min] > arr[right])
+                    min = right;
+                if (min != i)
+                    Swap(arr, i, min);              
+            }            
+        }
+
+        public static void InsertInMinHeap(List<int> arr, int e)
+        {
+            //Insert at the end of array. Then keep swaping it with its parents until the parent is smaller than the inserted element.
+            arr.Add(e);
+            int indexOfe = arr.Count - 1;
+            int parentOfe = (indexOfe-1) / 2; //parent of ith element is (i-1)/2. e is at the last i.e. at count-1 th position.
+            while(indexOfe >= 0 && arr[indexOfe]<arr[parentOfe])
+            {
+                Swap(arr, indexOfe, parentOfe);
+                indexOfe = parentOfe;
+                parentOfe = (indexOfe - 1) / 2;
+            }
+        }
+
+        public static int DeleteFromMinHeap(List<int> arr)
+        {
+            int min = arr[0];
+            arr.RemoveAt(0);
+            MinHeapifyAnArray(arr, arr.Count);
+            return min;
+        }
+
+        public static void MaxHeapifyAnArray(List<int> arr, int n)
+        {
+            //check if the current element at i is largest of its
+            //two children. If not, swap it with the largest child.
+            
+            int left, right, max;
+            for (int i = 0; i < n / 2; ++i)
+            {
+                left = 2 * i + 1;
+                right = 2 * i + 2;
+                max = i;
+                if (left <= n - 1 && arr[left] >= arr[max])
+                    max = left;
+                if (right <= n - 1 && arr[right] > arr[max])
+                    max = right;
+                if (max != i)
+                    Swap(arr, i, max);
+            }
+        }
+
+        public static void InsertInMaxHeap(List<int> arr, int e)
+        {
+            //Insert at the end of array. Then keep swaping it with its parents until the parent is smaller than the inserted element.
+            arr.Add(e);
+            int indexOfe = arr.Count - 1;
+            int parentOfe = (indexOfe - 1) / 2; //parent of ith element is (i-1)/2. e is at the last i.e. at count-1 th position.
+            while (indexOfe >= 0 && arr[indexOfe] > arr[parentOfe])
+            {
+                Swap(arr, indexOfe, parentOfe);
+                indexOfe = parentOfe;
+                parentOfe = (indexOfe - 1) / 2;
+            }
+        }
+
+        
+
+
+        public static int DeleteFromMaxHeap(List<int> arr)
+        {
+            int max = arr[0];
+            arr.RemoveAt(0);
+            MaxHeapifyAnArray(arr, arr.Count);
+            return max;
+        }
+
+        public static void HeapSort(List<int> arr)
+        {
+            int n = arr.Count;
+            while (n > 0)
+            {
+                MaxHeapifyAnArray(arr, n);
+                Swap(arr, 0, n);
+                n = n - 1;
+            }          
+            
+
+        }
+        public static void Swap(List<int> arr, int pos1, int pos2)
+        {
+            int temp = arr[pos1];
+            arr[pos1] = arr[pos2];
+            arr[pos2] = temp;
+        }
