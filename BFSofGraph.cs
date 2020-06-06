@@ -1,71 +1,75 @@
-class Program
+// This class represents a directed graph using adjacency list 
+// representation 
+public class Graph
     {
-        
-        public static void Main(string[] args)
+        private int V; // No. of vertices 
+
+        // Array of lists for Adjacency List Representation 
+        private Dictionary<int,List<int>> adj;
+            Dictionary<int, bool> visited;
+
+            // Constructor 
+            Graph(int v)
         {
-            int noOfTC = Convert.ToInt32(Console.ReadLine());
-
-
-            for (int t = 0; t < noOfTC; ++t)
-            {
-                //int num = Convert.ToInt32(Console.ReadLine());
-                //string[] s1 = Console.ReadLine().Split(' ');
-                //int[] startArray = Array.ConvertAll(s1, int.Parse);           
-
-
-                //string str = Console.ReadLine();
-
-                Dictionary<int, List<int>> graph = new Dictionary<int, List<int>>();
-
-
-                //graph[0] = new List<int> { 0,1, 2, 3 };
-                //graph[1] = new List<int> { 2, 4 };
-                graph.Add(0, new List<int> { 1, 2, 3 });
-                graph.Add(2, new List<int> { 4 });
-                DFS(graph,0);
-                Console.ReadLine();
-
-                //Example graph:0->1,3,5,4 
-                //1->2,0 
-                //2-> 1,3 
-                //3->0,2,5 | 4->0,5 | 5->0,3,4
-
-            }
+                visited = new Dictionary<int, bool>();
+                V = v;
+            adj = new Dictionary<int, List<int>>();
+            for (int i = 0; i < v; ++i)
+                adj.Add(i,new List<int>());
         }
 
-        public static void BFS(Dictionary<int, List<int>> graph, int startnode)
+        //Function to add an edge into the graph 
+        void addEdge(int v, int w)
         {
-            Dictionary<int, bool> visited = new Dictionary<int, bool>();
-            Queue<int> q = new Queue<int>();
-            q.Enqueue(startnode);
-            visited[startnode] = true;
-                
-            while(q.Count!=0)
+            adj[v].Add(w); // Add w to v's list. 
+        }
+
+        void BFS(int start)
             {
-                int node = q.Dequeue();                
-                visited.Add(node, true);
-                //following condition so that you don't print what's already visited and has beed printed. Like when a queue is something like
-                // 3,5,4,2,2,5. 
                 
-                if (!visited.ContainsKey(node)) 
-                    Console.WriteLine(node);                
-                
-                if (graph.ContainsKey(node))
+
+                Queue<int> queue = new Queue<int>();
+                visited.Add(start, true); 
+
+                while(queue.Count!=0)
                 {
-                    foreach (int k in graph[node])
-                        if (!visited[k]) //no point adding a node already visited.
+                    int temp = queue.Dequeue();
+                    Console.WriteLine(temp);
+
+                    foreach(int x in adj[temp])
+                    {
+                        if (!visited.ContainsKey(x))
                         {
-                            q.Enqueue(k);
+                            queue.Enqueue(x);
+                            visited.Add(x, true);
                         }
-                }               
-                
+                           
+                    }
+                }
             }
-            
+
+       
+
+        // Driver code
+        public static void Main(String[] args)
+        {
+            Graph g = new Graph(4);
+
+            g.addEdge(0, 1);
+            g.addEdge(0, 2);
+            g.addEdge(1, 2);
+            g.addEdge(2, 0);
+            g.addEdge(2, 3);
+            g.addEdge(3, 3);
+
+            Console.WriteLine("Following is Depth First Traversal");
+
+            foreach(KeyValuePair<int,List<int>> kvp in g.adj)
+                {
+                    if(!g.visited.ContainsKey(kvp.Key))
+                    {
+                        g.BFS(kvp.Key);
+                    }
+                }
         }
-
-        
-
-
-        
-
     }
