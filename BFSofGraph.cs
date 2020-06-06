@@ -33,7 +33,7 @@ class Program
             }
         }
 
-        public static void DFS(Dictionary<int, List<int>> graph, int startnode)
+        public static void BFS(Dictionary<int, List<int>> graph, int startnode)
         {
             Dictionary<int, bool> visited = new Dictionary<int, bool>();
             Queue<int> q = new Queue<int>();
