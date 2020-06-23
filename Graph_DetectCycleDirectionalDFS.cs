@@ -1,4 +1,4 @@
- public class Graph
+   public class Graph
     {
         public int V; // No. of vertices 
 
@@ -12,7 +12,7 @@
             visited = new HashSet<int>();
             V = v;
             adj = new Dictionary<int, List<int>>();
-            for (int i = 0; i < v; ++i)
+            for (int i = 1; i <=v; ++i)
                 adj.Add(i, new List<int>());
         }
 
@@ -46,6 +46,8 @@
             return false;
         }
         public static List<int> cycle = new List<int>();
+        public static bool parentFound = false;
+        public static int parent;
         private bool DFSDetectCycle(HashSet<int> whiteSet, HashSet<int> greySet, HashSet<int> blackSet, int current)
         {
             //move current from white to grey
@@ -62,13 +64,18 @@
                 if (greySet.Contains(neighbour))
                 {
                     cycle.Add(neighbour);
+                    parent = neighbour;
                     return true;
                 }
 
                 //make a recursive call to the function here. Return true if the recursive call of this funcyion return true from any path
                 if (DFSDetectCycle(whiteSet, greySet, blackSet, neighbour))
                 {
-                    cycle.Add(neighbour);
+                    if (neighbour == parent)
+                    {
+                        parentFound = true;
+                    }
+                    if(!parentFound)cycle.Add(neighbour);
                     return true;
                 }
             }
@@ -104,15 +111,17 @@
                 ////int[] arr = Array.ConvertAll(s1, int.Parse);
                 ////string str = Console.ReadLine();
                 //int i = 0;
-                Graph g = new Graph(4);
+                Graph g = new Graph(5);
 
-                g.addEdge(0, 1);
-                g.addEdge(0, 2);
-                g.addEdge(1, 2);
-                g.addEdge(2, 0);
+                g.addEdge(1,2);
                 g.addEdge(2, 3);
-                g.addEdge(3, 3);
+                g.addEdge(3, 4);
+                g.addEdge(4, 5);
+                g.addEdge(5, 3);
+               
                 Console.WriteLine(g.HasCycle(g));
+
+                //for this graph, cycle will have [0]=3, [1]=5, [2]=4. So print cycle in reverse order to get the cycle.
             }
             Console.ReadLine();
         }
