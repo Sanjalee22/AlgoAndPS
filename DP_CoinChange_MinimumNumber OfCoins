@@ -1,0 +1,58 @@
+This problem is about finding minimum "NUMBER OF COINS" needed to a sum, if we are given the denominations of coins available.
+It is like 0/1 knapsack. In 0 1 knapsack, we try to maximize value, here w etry to minimise the number of coins.
+The idea is similar, if we are at a number and a coin, we see that 
+1. is this number less than the current coin, if yes: the current coin can not be added, So the solution is about making the same number with minimum coin without that coin.
+ which we have already calculated.
+2. else this number greater than current coin: 
+ then a: include current coin in number and add 1 to the number of coins needed to make the number (current number-current coin)
+          note: add 1 because we are INCLUDING this coin and this problm is about number of coins. not number of ways.
+      b: don't include current coin in number then this value is equal to the current number without this coin.
+     And then take the minimum of a and b.
+     
+     
+     public class Solution {
+    public int CoinChange(int[] coins, int amount) {
+       
+        int noc=coins.Length;
+        
+        int[,] solution=new int[noc+1, amount+1];
+        
+        
+        //initialize first row with max int as 0 denomination is not possible
+        for(int j=0;j<=amount;++j)
+        {
+            solution[0,j]=int.MaxValue;
+        }
+        
+        //Initialize first column with zero as zero number of coins are needed to make zero     //using any denomination
+        
+        for(int i=1;i<noc+1;++i)
+        {
+            solution[i,0]=0;
+        }
+            
+        //Now start calculation by filling teh solution array
+        
+        for(int i=1;i<=noc;++i)
+        {
+            for(int j=1;j<=amount;++j)
+            {
+                if(j<coins[i-1])
+                    solution[i,j]=solution[i-1,j];
+                else
+                {
+                    //solution[i,j]=Math.Min(1+solution[i,j-coins[i-1]], solution[i-1,j]);
+                    int x= solution[i, j - coins[i - 1]]; int y;
+                        if (x!=int.MaxValue)                           
+                             x = 1 + solution[i, j - coins[i - 1]];
+                        y = solution[i - 1, j];
+                        solution[i, j] = Math.Min(x,y);
+                }
+            }
+        }
+        
+        if(solution[noc, amount]==int.MaxValue )
+            return -1;
+        return solution[noc, amount];
+    }
+}
