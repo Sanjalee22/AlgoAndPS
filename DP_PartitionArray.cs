@@ -1,4 +1,6 @@
 //Check if the array elements can be partitioned into two equal sum arrays.
+//In this solutin, we basically see that if there exists elements in the array who sum up to sum/2. If thats possible, we know that the array can be partitioned in two equal 
+//sum subsets. This is a generic solution. So if you replace sum/2 with any number k, you can check if te array has a subset whose sum is k.
 public bool CanPartition(int[] nums) {
         
         //calculate the sum
