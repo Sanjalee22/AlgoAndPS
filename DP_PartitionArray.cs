@@ -1,3 +1,4 @@
+//Check if the array elements can be partitioned into two equal sum arrays.
 public bool CanPartition(int[] nums) {
         
         //calculate the sum
