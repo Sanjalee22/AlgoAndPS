@@ -32,3 +32,27 @@
             }
 
         }
+        
+        //The above solution needs to be worked upon.
+        
+        //Another solution. :
+        public class Solution {
+    public bool IsValidBST(TreeNode root) {
+        bool res=IsBST(root, int.MinValue, int.MaxValue);
+            return res;
+    }
+    
+    public bool IsBST(TreeNode root, int min, int max)
+        {
+            if(root==null)
+                return true;
+        
+            if(root.val<min || root.val>max)
+                return false;
+        
+            return IsBST(root.left, min, root.val-1) &&
+                   IsBST(root.right, root.val+1, max);
+
+        }
+
+}
