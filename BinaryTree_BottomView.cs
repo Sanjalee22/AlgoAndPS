@@ -15,6 +15,10 @@ class Node
         
     }
     
+//In this approach, we travertse the tree in pre order traversal and pass a nodes horizontal distance on every recursive call. 
+//we also keep a BvMap which contains the final answer. It has a hd as key and node as value.
+//Now while traversing, we see if BV map already contains an hd. In that case we just update the node value with current node value, else we add that hd as key and 
+//current node as value. Then we recue for node.left a nd node.right. As BvMap is a sorted dictionary, we will have the final answer in correct order.
     public static void BottomViewOfBinaryTree_PreOrderTraversal(Node root)
         {
             setHDForBottomView(root, 0);
