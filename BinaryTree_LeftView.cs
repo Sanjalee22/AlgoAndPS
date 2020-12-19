@@ -56,7 +56,7 @@ public class
 
 /*Approach 2:
 Using Level Oeder Traversal.
-We insert teh nodes in queue. And run a loop till queue is not empty.
+We insert teh nodes in queue. And run a loop till queue is not empty. */
 
 public class LeftView
 {
