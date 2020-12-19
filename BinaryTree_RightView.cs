@@ -8,37 +8,33 @@ public class Solution {
         
     }
      
-    public void RightView(TreeNode root, IList<int> list)
+    public void RightView(TreeNode root)
     {
-            TreeNode dummy = new TreeNode(-1);
-            Queue<TreeNode> queue = new Queue<TreeNode>();
-            int level = 0;
-            queue.Enqueue(root);
-            queue.Enqueue(dummy);           
+        //We will use the same approach as used in left view of binary tree.
+        
+        Queue<Node> queue = new Queue<Node>();
+        queue.Enqueue(root);
+        
+        int n = queue.Count;
+        while(queue.Count>0)
+        {
             
-            
-            while (queue.Count != 0)
+            for(int i = 1; i<=n; ++i)
             {
-                TreeNode n = queue.Dequeue();
-                if(queue.Count!=0 && queue.Peek()==dummy) //if after dequeue, the peek element is dummy, that meant the dequeued element is the last in that level. Put it in list.
-                    list.Add(n.val);
-                if(n==dummy) //change of level
+                Node d = queue.Dequeue();
+                
+                if(i==n) //means the node d is the last node in this level
                 {
-                    if (queue.Count == 0)
-                        break;
-                    level++;                                      
-                    queue.Enqueue(dummy);
-                    continue;
+                    Console.WriteLine(d.data);
                 }
                 
-                if (n.left != null)
-                {
-                    queue.Enqueue(n.left);
-                }
-                if (n.right != null)
-                {
-                    queue.Enqueue(n.right);
-                }
+                if(d.left!=null)
+                    queue.Add(d.left);
+                
+                if(d.right!=null)
+                    queue.Add(d.right);
             }
+        }
+            
     }
 }
